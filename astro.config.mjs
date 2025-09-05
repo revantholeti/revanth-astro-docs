@@ -33,7 +33,7 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        { label: "Home", link: "/" },
+        { label: "About", link: "/" },
         {
           label: "Projects",
           items: [

@@ -1,26 +1,46 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import starlightThemeNova from "starlight-theme-nova";
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [
-		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
-			],
-		}),
-	],
+  trailingSlash: "ignore",
+  site: "https://revantholeti.io",
+  output: "static",
+  devToolbar: {
+    enabled: false,
+  },
+  integrations: [
+    starlight({
+      title: "Revanth Oleti",
+      plugins: [starlightThemeNova()],
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/revantholeti",
+        },
+        {
+          icon: "linkedin",
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/in/revanth-oleti/",
+        },
+        {
+          icon: "email",
+          label: "Email",
+          href: "mailto:oletirevanth@outlook.com",
+        },
+      ],
+      sidebar: [
+        { label: "Home", link: "/" },
+        {
+          label: "Projects",
+          items: [
+            { label: "Dependency Monitor", slug: "projects/dependencymonitor" },
+          ],
+        },
+      ],
+    }),
+  ],
 });

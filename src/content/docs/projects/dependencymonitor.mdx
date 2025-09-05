@@ -1,0 +1,44 @@
+---
+title: Dependency Monitor
+description: A CLI tool for analyzing, checking, and rendering dependency information for JavaScript/TypeScript projects.
+---
+
+## Features
+
+- Analyze project dependencies
+- Check for outdated or problematic dependencies
+- Render results in a readable table format
+- AI-powered recommendations (optional)
+
+## Installation
+
+Install via npm:
+
+```sh
+npm install -g dependency-monitor
+```
+
+## Usage
+
+After installing globally, use the CLI:
+
+```sh
+dep-monitor [command] [options]
+```
+
+### Commands & Options
+
+#### `audit`
+Audit dependencies for drift, outdated versions, and Angular compatibility issues.
+
+Options:
+- `--only-drifts` — Show only drifted dependencies
+- `--only-licenses` — Show only license summary
+- `--json` — Output result as JSON
+- `--prod-only` — Only include production dependencies
+- `--ai-insights` — Generate AI-based insights and risk summaries
+
+Example:
+```sh
+dep-monitor audit --only-drifts --json
+```

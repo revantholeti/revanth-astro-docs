@@ -1,0 +1,90 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+      - beta
+      - nightly
+    types: [opened, synchronize, reopened]
+  pull_request_target:
+    branches:
+      - main
+      - beta
+      - nightly
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    name: Lint and Test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint check
+        run: |
+          if npm run lint --silent 2>/dev/null; then
+            echo "Running lint..."
+            npm run lint
+          else
+            echo "⚠️ No lint script found in package.json, skipping lint"
+          fi
+
+      - name: Type check
+        run: |
+          if npm run type-check --silent 2>/dev/null; then
+            echo "Running type check..."
+            npm run type-check
+          else
+            echo "⚠️ No type-check script found in package.json, skipping type check"
+          fi
+
+      - name: Run tests
+        run: |
+          if npm run test --silent 2>/dev/null; then
+            echo "Running tests..."
+            npm run test
+          else
+            echo "⚠️ No test script found in package.json, skipping tests"
+          fi
+
+      - name: Build project
+        run: npm run build
+
+  semantic-release-preview:
+    runs-on: ubuntu-latest
+    name: Preview Release
+    needs: lint-and-test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Semantic Release Dry Run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release --dry-run

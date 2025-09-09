@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "release": "semantic-release"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.35.2",
@@ -16,5 +17,12 @@
     "starlight-theme-nova": "^0.9.4",
     "starlight-theme-obsidian": "^0.4.1",
     "starlight-theme-rapide": "^0.5.1"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^11.0.5",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "semantic-release": "^24.2.7"
   }
 }
